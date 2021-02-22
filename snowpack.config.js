@@ -7,7 +7,7 @@ module.exports = {
     "src": "/",
   },
   plugins: [
-    /* ... */
+    '@snowpack/plugin-sass'
   ],
   packageOptions: {
     /* ... */
