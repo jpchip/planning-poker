@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using planning_poker.Hubs;
+using PlanningPoker.Hubs;
 
-namespace planning_poker
+namespace PlanningPoker
 {
     public class Startup
     {
@@ -35,10 +35,6 @@ namespace planning_poker
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<PokerHub>("/hub");
-                /*endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!!");
-                });*/
             });
         }
     }

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>planning_poker</RootNamespace>
+    <RootNamespace>PlanningPoker</RootNamespace>
   </PropertyGroup>
 
 </Project>
