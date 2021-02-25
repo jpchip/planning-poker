@@ -2,53 +2,59 @@ import * as signalR from "@microsoft/signalr";
 
 export class Poker {
 
-    public connection: signalR.HubConnection;
+    public groupName = '';
 
-    public username = new Date().getTime();
+    public username = '';
 
-    public divMessages: HTMLDivElement = document.querySelector("#divMessages");
-    public tbMessage: HTMLInputElement = document.querySelector("#tbMessage");
-    public btnSend: HTMLButtonElement = document.querySelector("#btnSend");
+    private connection: signalR.HubConnection | null = null;
 
-    constructor() {
+    private static instance: Poker;
+
+    private constructor() {
         this.init();
     }
 
-    init() {
+    public static getInstance(): Poker {
+        if (!Poker.instance) {
+            Poker.instance = new Poker();
+        }
+
+        return Poker.instance;
+    }
+
+    init(): signalR.HubConnection {
         this.connection = new signalR.HubConnectionBuilder()
         .withUrl("/hub")
         .build();
-        const username = new Date().getTime();
 
-        this.tbMessage.addEventListener("keyup", this.onKeyup);      
-        this.btnSend.addEventListener("click", this.send);
-
-        this.connection.on("messageReceived", this.messageReceived);
-        
         this.connection.start().catch(err => document.write(err));
+        return this.connection;
     }
 
-    /**
-     * name
-     */
-    public messageReceived(username: string, message: string) {
-        let m = document.createElement("div");
-        
-            m.innerHTML =
-                `<div class="message-author">${username}</div><div>${message}</div>`;
-        
-            this.divMessages.appendChild(m);
-            this.divMessages.scrollTop = this.divMessages.scrollHeight;
+    getConnection(): signalR.HubConnection {
+        if (this.connection === null) {
+            return this.init();
+        }
+        return this.connection;
     }
 
-    onKeyup(e: KeyboardEvent) {
-        if (e.key === "Enter") {
-            this.send();
+    addToGroup(userName: string, groupName: string) {
+        this.username = userName;
+        this.groupName = groupName;
+        if (this.connection) {
+            this.connection.send("addToGroup", this.username, this.groupName);
         }
     }
 
-    send() {
-        this.connection.send("newMessage", this.username, this.tbMessage.value)
-        .then(() => this.tbMessage.value = "");
+    reconcileUsers(usernames: string[]) {
+        if (this.connection) {
+            this.connection.send("reconcileUsers", usernames, this.groupName);
+        }
+    }
+
+    setScore(score: number) {
+        if (this.connection) {
+            this.connection.send("setScore", this.username, this.groupName, score);
+        }
     }
 }

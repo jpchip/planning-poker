@@ -7,7 +7,9 @@ module.exports = {
     "src": "/",
   },
   plugins: [
-    '@snowpack/plugin-sass'
+    '@snowpack/plugin-sass',
+    '@snowpack/plugin-svelte',
+    '@snowpack/plugin-typescript'
   ],
   packageOptions: {
     /* ... */
@@ -16,6 +18,6 @@ module.exports = {
     /* ... */
   },
   buildOptions: {
-    out: './planning-poker/wwwroot'
+    out: './PlanningPoker/wwwroot'
   },
 };
