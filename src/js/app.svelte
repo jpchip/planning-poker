@@ -63,7 +63,8 @@
     </form>
     {/if}
     <div>{message}</div>
-    <table>
+    {#if inGroup}
+    <table class="table table-bordered mb-2">
       <thead>
         <tr>
           {#each users as user}
@@ -77,7 +78,7 @@
           {#each users as user}
             <td>{user.score}</td>
           {/each}
-          <td>{ (users.length > 0) ? users.reduce((total, b) => total + b.score, 0) / users.length : ''}</td>
+          <td class="table-success">{ (users.length > 0) ? users.reduce((total, b) => total + b.score, 0) / users.length : ''}</td>
         </tr>
       </tbody>
     </table>
@@ -89,4 +90,5 @@
         {/each}
       </div>
     </div>
+    {/if}
   </div>
