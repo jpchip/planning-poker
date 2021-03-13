@@ -46,6 +46,12 @@ export class Poker {
         }
     }
 
+    removeFromGroup(userName: string, groupName: string) {
+        if (this.connection) {
+            this.connection.send("removeFromGroup", this.username, this.groupName);
+        }
+    }
+
     reconcileUsers(usernames: string[]) {
         if (this.connection) {
             this.connection.send("reconcileUsers", usernames, this.groupName);
@@ -55,6 +61,18 @@ export class Poker {
     setScore(score: number) {
         if (this.connection) {
             this.connection.send("setScore", this.username, this.groupName, score);
+        }
+    }
+
+    reveal() {
+        if (this.connection) {
+            this.connection.send("reveal", this.username, this.groupName);
+        }
+    }
+
+    reset() {
+        if (this.connection) {
+            this.connection.send("reset", this.username, this.groupName);
         }
     }
 }

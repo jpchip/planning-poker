@@ -16,16 +16,26 @@ namespace PlanningPoker.Hubs
             await Clients.Group(groupName).SendAsync("scoreSet", userName, score);
         }
 
+        public async Task Reveal(string userName, string groupName)
+        {
+            await Clients.Group(groupName).SendAsync("reveal", userName);
+        }
+
+        public async Task Reset(string userName, string groupName)
+        {
+            await Clients.Group(groupName).SendAsync("reset", userName);
+        }
+
         public async Task AddToGroup(string userName, string groupName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-            await Clients.Group(groupName).SendAsync("addedToGroup", $"{userName}({Context.ConnectionId}) has joined the group {groupName}.");
+            await Clients.Group(groupName).SendAsync("addedToGroup", userName, groupName);
         }
 
         public async Task RemoveFromGroup(string userName, string groupName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
-            await Clients.Group(groupName).SendAsync("Send", $"{userName} ({Context.ConnectionId}) has left the group {groupName}.");
+            await Clients.Group(groupName).SendAsync("removedFromGroup", userName, groupName);
         }
     }
 }
