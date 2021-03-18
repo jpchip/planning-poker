@@ -2,6 +2,9 @@ FROM node:lts AS nodejs-builder
 COPY ./src /app/src
 COPY ./package.json /app/package.json
 COPY ./package-lock.json /app/package-lock.json
+COPY ./snowpack.config.js /app/snowpack.config.js
+COPY ./svelte.config.js /app/svelte.config.js
+COPY ./tsconfig.json /app/tsconfig.json
 WORKDIR /app
 RUN npm install
 RUN npm run build
