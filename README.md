@@ -5,10 +5,24 @@ Planning poker site built as an excuse to play around with signalR and snowpack
 
 ## Installing / Getting started
 
-Eventually should just need to:
+Spin up dotnet:
 
 ```shell
 docker-compose up
 ```
 
+Compile frontend:
+
+```shell
+npm install
+npm run build
+```
+
 Vist site at localhost:8080
+
+## Production Build
+
+```shell
+docker build -t planning-poker -f dockerfile .
+docker run -dp 80:80 planning-poker
+```
