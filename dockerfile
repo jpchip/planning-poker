@@ -2,7 +2,6 @@ FROM node:lts AS nodejs-builder
 COPY ./src /app/src
 COPY ./package.json /app/package.json
 COPY ./package-lock.json /app/package-lock.json
-COPY ./PlanningPoker/wwwroot /app/PlanningPoker/wwwroot
 WORKDIR /app
 RUN npm install
 RUN npm run build
