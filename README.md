@@ -24,5 +24,7 @@ Vist site at localhost:8080
 
 ```shell
 docker build -t planning-poker -f dockerfile .
-docker run -dp 80:80 planning-poker
+docker run -dp 80:8080 planning-poker
 ```
+
+Vist site at localhost:80
