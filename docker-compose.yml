@@ -3,7 +3,8 @@ services:
   app:
     image: mcr.microsoft.com/dotnet/sdk:5.0
     container_name: planning-poker
-    environment: 
+    environment:
+        - PORT=8080
         - ASPNETCORE_URLS=http://+:8080
         - DOTNET_USE_POLLING_FILE_WATCHER=1
     volumes:

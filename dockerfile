@@ -16,8 +16,7 @@ WORKDIR /PlanningPoker
 RUN dotnet publish -c Release
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS release
-EXPOSE 8080
-ENV ASPNETCORE_URLS=http://*:8080
+ENV ASPNETCORE_Environment=Production
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 RUN mkdir /service
 COPY --from=dotnet-builder /PlanningPoker/bin/Release/net5.0/publish /service

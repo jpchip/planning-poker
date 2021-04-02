@@ -21,7 +21,7 @@ namespace PlanningPoker
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder
-                        .UseUrls("http://*:8080/;")
+                        .UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("PORT"))
                         .UseStartup<Startup>();
                 });
     }
