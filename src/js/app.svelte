@@ -4,10 +4,11 @@
   import { toast } from '@zerodevx/svelte-toast';
   import { Poker } from "./poker";
   import { getRoomFromUrl } from './utils';
+  import Login from './components/Login.svelte';
+
   const poker = Poker.getInstance();
 
   const toastOptions = { duration: 2000 };
-  let newUsername = '';
   let newRoom = getRoomFromUrl();
 
   let users: {username: string, score: number}[] = [];
@@ -80,8 +81,8 @@
     }
   });
 
-  function onSubmit() {
-    poker.addToGroup(newUsername, newRoom);
+  function handleLogin(event: any) {
+    poker.addToGroup(event.detail.username, event.detail.room);
     inGroup = true;
   }
 
@@ -107,17 +108,7 @@
 
   <div class="container">
     {#if !inGroup}
-    <form class="mt-2" on:submit|preventDefault="{onSubmit}">
-      <div class="mb-3">
-        <label for="newUsername" class="form-label">User Name</label>
-        <input type="text" class="form-control" id="newUsername" bind:value={newUsername} >
-      </div>
-      <div class="mb-3">
-        <label for="newRoom" class="form-label">Room</label>
-        <input type="text" class="form-control" id="newRoom" bind:value={newRoom}>
-      </div>
-      <button type="submit" class="btn btn-primary">Join</button>
-    </form>
+    <Login room={newRoom} on:login={handleLogin}></Login>
     {/if}
 
     {#if inGroup}
