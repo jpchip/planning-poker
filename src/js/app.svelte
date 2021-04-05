@@ -5,6 +5,7 @@
   import { Poker } from "./poker";
   import { getRoomFromUrl } from './utils';
   import Login from './components/Login.svelte';
+  import ScoreDisplay from './components/ScoreDisplay.svelte';
 
   const poker = Poker.getInstance();
 
@@ -100,10 +101,6 @@
 
 </script>
   <style>
-
-    th, td {
-      text-align: center;
-    }
   </style>
 
   <div class="container">
@@ -112,41 +109,7 @@
     {/if}
 
     {#if inGroup}
-    <table class="table table-bordered my-2">
-      
-      <thead>
-        <tr>
-          {#each users as user}
-            <th>{user.username}</th>
-          {/each}
-          <th>Avg.</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          {#each users as user}
-            <td>
-              {#if scoresVisible}
-                {user.score}
-              {:else}
-                {#if user.score > 0}
-                  ?
-                {:else}
-                  -
-                {/if}
-              {/if}
-            </td>
-          {/each}
-          <td class="table-success">
-            {#if scoresVisible}
-              { (users.length > 0) ? users.reduce((total, b) => total + b.score, 0) / users.length : ''}
-            {:else}
-                -
-            {/if}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <ScoreDisplay users={users} scoresVisible={scoresVisible} />
 
     <div class="btn-toolbar" role="toolbar" aria-label="Cards">
       <div class="btn-group me-2" role="group" aria-label="First group">
