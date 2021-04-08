@@ -4,10 +4,13 @@
   import { toast } from '@zerodevx/svelte-toast';
   import { Poker } from "./poker";
   import { getRoomFromUrl } from './utils';
+  import Login from './components/Login.svelte';
+  import ScoreDisplay from './components/ScoreDisplay.svelte';
+  import ScoreSelector from './components/ScoreSelector.svelte';
+
   const poker = Poker.getInstance();
 
   const toastOptions = { duration: 2000 };
-  let newUsername = '';
   let newRoom = getRoomFromUrl();
 
   let users: {username: string, score: number}[] = [];
@@ -80,94 +83,36 @@
     }
   });
 
-  function onSubmit() {
-    poker.addToGroup(newUsername, newRoom);
+  function handleLogin(event: any) {
+    poker.addToGroup(event.detail.username, event.detail.room);
     inGroup = true;
   }
 
-  function setScore(score: number) {
-    poker.setScore(score);
+  function handleSetScore(event: any) {
+    poker.setScore(event.detail.score);
   }
 
-  function reveal() {
+  function handleReveal() {
     poker.reveal();
   }
 
-  function reset() {
+  function handleReset() {
     poker.reset();
   }
 
 </script>
   <style>
-
-    th, td {
-      text-align: center;
-    }
   </style>
 
   <div class="container">
     {#if !inGroup}
-    <form class="mt-2" on:submit|preventDefault="{onSubmit}">
-      <div class="mb-3">
-        <label for="newUsername" class="form-label">User Name</label>
-        <input type="text" class="form-control" id="newUsername" bind:value={newUsername} >
-      </div>
-      <div class="mb-3">
-        <label for="newRoom" class="form-label">Room</label>
-        <input type="text" class="form-control" id="newRoom" bind:value={newRoom}>
-      </div>
-      <button type="submit" class="btn btn-primary">Join</button>
-    </form>
+    <Login room={newRoom} on:login={handleLogin}></Login>
     {/if}
 
     {#if inGroup}
-    <table class="table table-bordered my-2">
-      
-      <thead>
-        <tr>
-          {#each users as user}
-            <th>{user.username}</th>
-          {/each}
-          <th>Avg.</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          {#each users as user}
-            <td>
-              {#if scoresVisible}
-                {user.score}
-              {:else}
-                {#if user.score > 0}
-                  ?
-                {:else}
-                  -
-                {/if}
-              {/if}
-            </td>
-          {/each}
-          <td class="table-success">
-            {#if scoresVisible}
-              { (users.length > 0) ? users.reduce((total, b) => total + b.score, 0) / users.length : ''}
-            {:else}
-                -
-            {/if}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <ScoreDisplay users={users} scoresVisible={scoresVisible} />
+    <ScoreSelector on:setScore={handleSetScore} on:reset={handleReset} on:reveal={handleReveal} />
 
-    <div class="btn-toolbar" role="toolbar" aria-label="Cards">
-      <div class="btn-group me-2" role="group" aria-label="First group">
-        {#each scores as score}
-          <button type="button" on:click="{() => setScore(score)}" class="btn btn-outline-primary shadow-none">{score}</button>
-        {/each}
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-secondary shadow-none" on:click="{() => reveal()}">Reveal</button>
-        <button type="button" class="btn btn-danger shadow-none" on:click="{() => reset()}">Reset</button>
-      </div>
-    </div>
     {/if}
   </div>
 
