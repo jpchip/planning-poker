@@ -1,7 +1,7 @@
 {
   "name": "planning-poker",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "Simple Planning Poker site",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -9,9 +9,12 @@
     "start": "snowpack build --watch",
     "build": "snowpack build"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["planning poker", "developers", "svelte", "poker", "cards", "scrum", "sprint planning"],
+  "author": "Jared Chapiewsky (http://jaredchapiewsky.me/)",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14"
+  },
   "devDependencies": {
     "@microsoft/signalr": "^5.0.3",
     "@snowpack/plugin-sass": "^1.3.0",
