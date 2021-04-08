@@ -6,6 +6,7 @@
   import { getRoomFromUrl } from './utils';
   import Login from './components/Login.svelte';
   import ScoreDisplay from './components/ScoreDisplay.svelte';
+  import ScoreSelector from './components/ScoreSelector.svelte';
 
   const poker = Poker.getInstance();
 
@@ -87,15 +88,15 @@
     inGroup = true;
   }
 
-  function setScore(score: number) {
-    poker.setScore(score);
+  function handleSetScore(event: any) {
+    poker.setScore(event.detail.score);
   }
 
-  function reveal() {
+  function handleReveal() {
     poker.reveal();
   }
 
-  function reset() {
+  function handleReset() {
     poker.reset();
   }
 
@@ -110,18 +111,8 @@
 
     {#if inGroup}
     <ScoreDisplay users={users} scoresVisible={scoresVisible} />
+    <ScoreSelector on:setScore={handleSetScore} on:reset={handleReset} on:reveal={handleReveal} />
 
-    <div class="btn-toolbar" role="toolbar" aria-label="Cards">
-      <div class="btn-group me-2" role="group" aria-label="First group">
-        {#each scores as score}
-          <button type="button" on:click="{() => setScore(score)}" class="btn btn-outline-primary shadow-none">{score}</button>
-        {/each}
-      </div>
-      <div class="btn-group me-2" role="group" aria-label="Second group">
-        <button type="button" class="btn btn-secondary shadow-none" on:click="{() => reveal()}">Reveal</button>
-        <button type="button" class="btn btn-danger shadow-none" on:click="{() => reset()}">Reset</button>
-      </div>
-    </div>
     {/if}
   </div>
 
