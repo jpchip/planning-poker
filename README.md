@@ -1,4 +1,4 @@
-# Planning Poker &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/your/your-project/blob/master/LICENSE)
+# Planning Poker &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/jpchip/planning-poker/blob/master/LICENSE)
 > Dead simple planning poker implementation
 
 I wanted an excuse to tinker with Svelte, Snowpack, .NET 5.0, and SignalR. So here is the most basic implementation of a planning poker site. 
@@ -53,7 +53,7 @@ Currently the site is deployed to Heroku. You could easily deploy to your own He
 
 ## Versioning
 
-We can maybe use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags](https://github.com/jpchip/planning-poker/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags](https://github.com/jpchip/planning-poker/tags).
 
 
 ## Tests
