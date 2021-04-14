@@ -22,7 +22,10 @@
     if (username !== poker.username) {
       toast.push(`${username} joined the room!`);
     }
-    users.push({username: username, score: 0});
+    const currentUser = users.find(u => u.username === username);
+    if (!currentUser) {
+      users.push({username: username, score: 0});
+    }
     users = [...users];
     poker.reconcileUsers(users.map(u => u.username));
   });
@@ -42,9 +45,9 @@
       const existingUser = users.find(u => u.username === reconciledUsername);
       if (!existingUser) {
         users.push({username: reconciledUsername, score: 0});
-        users = [...users];
       }
     });
+    users = [...users];
   });
 
   poker.getConnection().on('scoreSet', (username: string, score: number) => {
