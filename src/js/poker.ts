@@ -75,4 +75,10 @@ export class Poker {
             this.connection.send("reset", this.username, this.groupName);
         }
     }
+
+    marco() {
+        if (this.connection) {
+            this.connection.send("marco", this.username, this.groupName);
+        }
+    }
 }

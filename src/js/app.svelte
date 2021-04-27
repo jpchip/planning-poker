@@ -18,6 +18,10 @@
   let inGroup = false;
   let scoresVisible = false;
 
+  window.setInterval(() => {
+    console.log('marco');
+    poker.marco();
+  }, 30000);
   poker.getConnection().on('addedToGroup', (username: string, groupname: string) => {
     if (username !== poker.username) {
       toast.push(`${username} joined the room!`);
@@ -78,6 +82,12 @@
     users.forEach(u => u.score = 0);
     users = [...users];
     scoresVisible = false;
+  });
+
+  poker.getConnection().on('polo', (username: string) => {
+    if (username === poker.username) {
+      console.log('polo');
+    }
   });
 
   poker.getConnection().onclose((error) => {

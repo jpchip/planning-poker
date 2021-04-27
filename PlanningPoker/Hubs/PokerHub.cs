@@ -37,5 +37,10 @@ namespace PlanningPoker.Hubs
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
             await Clients.Group(groupName).SendAsync("removedFromGroup", userName, groupName);
         }
+
+        public async Task Marco(string userName, string groupName)
+        {
+            await Clients.Group(groupName).SendAsync("polo", userName);
+        }
     }
 }
