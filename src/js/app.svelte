@@ -3,15 +3,17 @@
   import { SvelteToast } from '@zerodevx/svelte-toast';
   import { toast } from '@zerodevx/svelte-toast';
   import { Poker } from "./poker";
-  import { getRoomFromUrl } from './utils';
+  import { getRoomFromUrl, setRoomToUrl } from './utils';
   import Login from './components/Login.svelte';
   import ScoreDisplay from './components/ScoreDisplay.svelte';
   import ScoreSelector from './components/ScoreSelector.svelte';
+  import Header from './components/Header.svelte';
 
   const poker = Poker.getInstance();
 
   const toastOptions = { duration: 2000 };
   let newRoom = getRoomFromUrl();
+  let newUsername = localStorage.getItem('planning-poker-user') || '';
 
   let users: {username: string, score: number}[] = [];
   let scores: number[] = [1,2,3,5,8,13,21];
@@ -22,6 +24,7 @@
     console.log('marco');
     poker.marco();
   }, 30000);
+
   poker.getConnection().on('addedToGroup', (username: string, groupname: string) => {
     if (username !== poker.username) {
       toast.push(`${username} joined the room!`);
@@ -98,6 +101,8 @@
 
   function handleLogin(event: any) {
     poker.addToGroup(event.detail.username, event.detail.room);
+    setRoomToUrl(event.detail.room);
+    localStorage.setItem('planning-poker-user', event.detail.username);
     inGroup = true;
   }
 
@@ -117,9 +122,11 @@
   <style>
   </style>
 
-  <div class="container">
+  <Header></Header>
+
+  <div class="container mt-5">
     {#if !inGroup}
-    <Login room={newRoom} on:login={handleLogin}></Login>
+    <Login room={newRoom} username={newUsername} on:login={handleLogin}></Login>
     {/if}
 
     {#if inGroup}
