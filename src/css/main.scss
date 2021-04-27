@@ -31,3 +31,16 @@ html, body {
     overflow-y: auto;
     padding: 5px;
 }
+
+.siteTitle {
+    color: #000;
+}
+
+[data-theme="dark"] {
+    background-color: #111 !important;
+    color: #eee;
+
+    .table {
+        color: #eee;
+    }
+}
