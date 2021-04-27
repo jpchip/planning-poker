@@ -75,7 +75,7 @@
     if (username !== poker.username) {
       toast.push(`${username} revealed!`);
     }
-    scoresVisible = !scoresVisible;
+    scoresVisible = true;
   });
 
   poker.getConnection().on('reset', (username: string) => {
