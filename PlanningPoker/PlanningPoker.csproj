@@ -9,4 +9,10 @@
     <PackageReference Include="Microsoft.AspNet.SignalR.Core" Version="2.4.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\**">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
