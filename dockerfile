@@ -9,16 +9,16 @@ WORKDIR /app
 RUN npm install
 RUN npm run build
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS dotnet-builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS dotnet-builder
 COPY ./PlanningPoker /PlanningPoker
 COPY --from=nodejs-builder /app/PlanningPoker/wwwroot/ /PlanningPoker/wwwroot
 WORKDIR /PlanningPoker
 RUN dotnet publish -c Release
 
-FROM mcr.microsoft.com/dotnet/sdk:5.0 AS release
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS release
 ENV ASPNETCORE_Environment=Production
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 RUN mkdir /service
-COPY --from=dotnet-builder /PlanningPoker/bin/Release/net5.0/publish /service
+COPY --from=dotnet-builder /PlanningPoker/bin/Release/net6.0/publish /service
 WORKDIR /service
 CMD [ "dotnet", "PlanningPoker.dll" ]
