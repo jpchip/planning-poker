@@ -25,6 +25,7 @@ export class Poker {
     init(): signalR.HubConnection {
         this.connection = new signalR.HubConnectionBuilder()
         .withUrl("/hub")
+        .withAutomaticReconnect()
         .build();
 
         this.connection.start().catch(err => document.write(err));
@@ -41,43 +42,43 @@ export class Poker {
     addToGroup(userName: string, groupName: string) {
         this.username = userName;
         this.groupName = groupName;
-        if (this.connection) {
+        if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
             this.connection.send("addToGroup", this.username, this.groupName);
         }
     }
 
     removeFromGroup(userName: string, groupName: string) {
-        if (this.connection) {
+        if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
             this.connection.send("removeFromGroup", this.username, this.groupName);
         }
     }
 
     reconcileUsers(usernames: string[]) {
-        if (this.connection) {
+        if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
             this.connection.send("reconcileUsers", usernames, this.groupName);
         }
     }
 
     setScore(score: number) {
-        if (this.connection) {
+        if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
             this.connection.send("setScore", this.username, this.groupName, score);
         }
     }
 
     reveal() {
-        if (this.connection) {
+        if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
             this.connection.send("reveal", this.username, this.groupName);
         }
     }
 
     reset() {
-        if (this.connection) {
+        if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
             this.connection.send("reset", this.username, this.groupName);
         }
     }
 
     marco() {
-        if (this.connection) {
+        if (this.connection && this.connection.state === signalR.HubConnectionState.Connected) {
             this.connection.send("marco", this.username, this.groupName);
         }
     }

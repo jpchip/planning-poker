@@ -25,6 +25,14 @@
     poker.marco();
   }, 30000);
 
+  poker.getConnection().onreconnecting((error) => {
+      toast.push(`Connection lost due to error "${error}". Reconnecting.`);
+  });
+
+  poker.getConnection().onreconnected((connectionId) => {
+      toast.push('Connection reestablished. Connected.');
+  });
+
   poker.getConnection().on('addedToGroup', (username: string, groupname: string) => {
     if (username !== poker.username) {
       toast.push(`${username} joined the room!`);
